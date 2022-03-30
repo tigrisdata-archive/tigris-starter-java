@@ -1,0 +1,25 @@
+{
+  "title": "Product",
+  "description": "This document records the details of products available in tigris store",
+  "properties": {
+    "id": {
+      "description": "A unique identifier for the product",
+      "type": "int"
+    },
+    "name": {
+      "description": "Name of the product",
+      "type": "string"
+    },
+    "quantity": {
+      "description": "number of products available in the store",
+      "type": "int"
+    },
+    "price": {
+      "description": "price of the product",
+      "type": "double"
+    }
+  },
+  "primary_key": [
+    "id"
+  ]
+}

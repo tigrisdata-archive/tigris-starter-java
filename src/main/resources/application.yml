@@ -1,0 +1,17 @@
+server:
+  port: 8080
+
+tigrisdb:
+  db:
+    name: "tigris-store-java"
+  server:
+    url: "localhost:8081"
+  network:
+    usePlainText: true
+  authorization:
+    token: "some-token"
+
+springdoc:
+  swagger-ui:
+    path: "/swagger.html"
+    operationsSorter: "method"
