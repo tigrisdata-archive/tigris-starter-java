@@ -10,7 +10,7 @@ Example schema
 
 ```json
 {
-  "title": "User",
+  "name": "User",
   "description": "This document records the details of user for tigris store",
   "properties": {
     "id": {
