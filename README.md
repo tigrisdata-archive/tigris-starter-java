@@ -1,6 +1,8 @@
 # tigrisdb-example-java
 An example Java application demonstrating TigrisDB's usage.
 
+![build status](https://github.com/tigrisdata/tigrisdb-example-java/actions/workflows/java-ci/badge.svg)
+
 # Key points
 
 ### Schema
