@@ -11,7 +11,7 @@
  * express or implied. See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.tigrisdata.example.controller;
+package com.tigrisdata.starter.controller;
 
 import com.tigrisdata.db.client.error.TigrisDBException;
 import org.springframework.http.HttpStatus;

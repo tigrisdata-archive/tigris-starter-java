@@ -11,15 +11,15 @@
  * express or implied. See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.tigrisdata.example;
+package com.tigrisdata.starter;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TigrisStoreApplication {
+public class TigrisDBStarterApplication {
 
   public static void main(String[] args) {
-    new SpringApplication(TigrisStoreApplication.class).run(args);
+    new SpringApplication(TigrisDBStarterApplication.class).run(args);
   }
 }

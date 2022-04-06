@@ -1,5 +1,5 @@
-# tigrisdb-example-java
-An example Java application demonstrating TigrisDB's usage.
+# tigrisdb-starter-java
+A starter Java application for TigrisDB.
 
 [![java-ci](https://github.com/tigrisdata/tigrisdb-example-java/actions/workflows/java-ci.yml/badge.svg?branch=main)](https://github.com/tigrisdata/tigrisdb-example-java/actions/workflows/java-ci.yml)
 # Key points
@@ -76,6 +76,7 @@ userCollection.insert(alice);
 
 # Restful endpoints
 
+This starter application exposes restful endpoints, to play around with it. 
 Go to http://localhost:8080/swagger.html
 
 ![swagger_ui_screenshot.png](swagger_ui_screenshot.png)
