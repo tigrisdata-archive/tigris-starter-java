@@ -11,7 +11,7 @@
  * express or implied. See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.tigrisdata.example.controller;
+package com.tigrisdata.starter.controller;
 
 import com.tigrisdata.db.client.error.TigrisDBException;
 import com.tigrisdata.db.client.model.Filters;
@@ -21,8 +21,8 @@ import com.tigrisdata.db.client.model.UpdateFields;
 import com.tigrisdata.db.client.service.TigrisDatabase;
 import com.tigrisdata.db.client.service.TransactionSession;
 import com.tigrisdata.db.client.service.TransactionTigrisCollection;
-import com.tigrisdata.store.generated.Product;
-import com.tigrisdata.store.generated.User;
+import com.tigrisdata.starter.generated.Product;
+import com.tigrisdata.starter.generated.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,10 +33,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("shop")
 public class ShopController {
-    private final TigrisDatabase tigrisStoreDatabase;
+    private final TigrisDatabase tigrisStarterDatabase;
 
-    public ShopController(TigrisDatabase tigrisStoreDatabase) {
-        this.tigrisStoreDatabase = tigrisStoreDatabase;
+    public ShopController(TigrisDatabase tigrisStarterDatabase) {
+        this.tigrisStarterDatabase = tigrisStarterDatabase;
     }
 
     @PostMapping("{user_id}/{product_id}/{qty}")
@@ -46,7 +46,7 @@ public class ShopController {
             @RequestParam("qty") int quantity)
             throws TigrisDBException {
         TransactionSession transactionSession =
-                tigrisStoreDatabase.beginTransaction(new TransactionOptions());
+                tigrisStarterDatabase.beginTransaction(new TransactionOptions());
         try {
             TransactionTigrisCollection<User> userCollection =
                     transactionSession.getCollection(User.class);

@@ -48,7 +48,7 @@
                 </executions>
                 <configuration>
                     <schemaDir>src/main/resources/tigrisdb-schema</schemaDir>
-                    <packageName>com.tigrisdata.store.generated</packageName>
+                    <packageName>com.tigrisdata.starter.generated</packageName>
                     <outputDirectory>target/generated-sources</outputDirectory>
                 </configuration>
             </plugin>
@@ -63,8 +63,7 @@
     <repositories>
         <repository>
             <id>sonatype-snapshots</id>
-            <url>https://s01.oss.sonatype.org/content/repositories/snapshots/
-            </url>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
             <snapshots>
                 <updatePolicy>always</updatePolicy>
                 <enabled>true</enabled>

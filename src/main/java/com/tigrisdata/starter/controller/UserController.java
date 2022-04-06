@@ -11,13 +11,13 @@
  * express or implied. See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.tigrisdata.example.controller;
+package com.tigrisdata.starter.controller;
 
 import com.tigrisdata.db.client.error.TigrisDBException;
 import com.tigrisdata.db.client.model.Filters;
 import com.tigrisdata.db.client.service.TigrisCollection;
 import com.tigrisdata.db.client.service.TigrisDatabase;
-import com.tigrisdata.store.generated.Product;
+import com.tigrisdata.starter.generated.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,29 +29,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("products")
-public class ProductController {
+@RequestMapping("users")
+public class UserController {
 
-  private final TigrisCollection<Product> productTigrisCollection;
+  private final TigrisCollection<User> userTigrisCollection;
 
-  public ProductController(TigrisDatabase tigrisDatabase) {
-    this.productTigrisCollection = tigrisDatabase.getCollection(Product.class);
+  public UserController(TigrisDatabase tigrisDatabase) {
+    this.userTigrisCollection = tigrisDatabase.getCollection(User.class);
   }
 
   @PostMapping("/create")
-  public ResponseEntity<String> create(@RequestBody Product product) throws TigrisDBException {
-    productTigrisCollection.insert(product);
-    return ResponseEntity.status(HttpStatus.CREATED).body("product created");
+  public ResponseEntity<String> create(@RequestBody User user) throws TigrisDBException {
+    userTigrisCollection.insert(user);
+    return ResponseEntity.status(HttpStatus.CREATED).body("User created");
   }
 
   @GetMapping("/{id}")
-  public Product read(@PathVariable("id") int id) throws TigrisDBException {
-    return productTigrisCollection.readOne(Filters.eq("id", id));
+  public User read(@PathVariable("id") int id) throws TigrisDBException {
+    return userTigrisCollection.readOne(Filters.eq("id", id));
   }
 
   @DeleteMapping("/{id}")
   public ResponseEntity<String> delete(@PathVariable("id") int id) throws TigrisDBException {
-    productTigrisCollection.delete(Filters.eq("id", id));
-    return ResponseEntity.status(HttpStatus.OK).body("product deleted");
+    userTigrisCollection.delete(Filters.eq("id", id));
+    return ResponseEntity.status(HttpStatus.OK).body("User deleted");
   }
 }
