@@ -42,9 +42,9 @@ public class TigrisDBInitializer implements CommandLineRunner {
 
     TigrisDatabase tigrisDatabase = tigrisDBClient.getDatabase(dbName);
     createCollectionSilently(
-        tigrisDatabase, "user", "src/main/resources/tigris-schema-dir/user.json");
+        tigrisDatabase, "user", "src/main/resources/tigrisdb-schema/user.json");
     createCollectionSilently(
-        tigrisDatabase, "product", "src/main/resources/tigris-schema-dir/product.json");
+        tigrisDatabase, "product", "src/main/resources/tigrisdb-schema/product.json");
     log.info("Finished initializing TigrisDB");
   }
 
@@ -57,7 +57,7 @@ public class TigrisDBInitializer implements CommandLineRunner {
       tigrisDatabase.createCollection(
           collectionName, new TigrisDBJSONSchema(schemaFile), new CollectionOptions());
     } catch (TigrisDBException ignore) {
-      log.info("Ignored exception", ignore);
+      log.info("Ignored exception {}", ignore.getMessage());
     }
   }
 }
