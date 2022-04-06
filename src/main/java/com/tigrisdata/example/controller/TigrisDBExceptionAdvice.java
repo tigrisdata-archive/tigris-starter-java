@@ -23,10 +23,14 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class TigrisDBExceptionAdvice {
 
-  @ResponseBody
-  @ExceptionHandler(TigrisDBException.class)
-  @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-  String employeeNotFoundHandler(TigrisDBException ex) {
-    return ex.getMessage();
-  }
+    @ResponseBody
+    @ExceptionHandler(TigrisDBException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    String exceptionHandler(TigrisDBException ex) {
+        String errorMessage = ex.getMessage();
+        if (ex.getCause() != null && ex.getCause().getMessage() != null) {
+            errorMessage += ", " + ex.getCause().getMessage();
+        }
+        return errorMessage;
+    }
 }
