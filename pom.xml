@@ -50,6 +50,7 @@
                     <schemaDir>src/main/resources/tigrisdb-schema</schemaDir>
                     <packageName>com.tigrisdata.starter.generated</packageName>
                     <outputDirectory>target/generated-sources</outputDirectory>
+                    <disableValidation>true</disableValidation>
                 </configuration>
             </plugin>
         </plugins>

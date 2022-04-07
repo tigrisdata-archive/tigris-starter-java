@@ -1,0 +1,25 @@
+{
+  "name": "order",
+  "description": "Collection of documents with details of an order",
+  "properties": {
+    "id": {
+      "description": "A unique identifier for the order",
+      "type": "bigint"
+    },
+    "user_id": {
+      "description": "The identifier of the user that placed the order",
+      "type": "bigint"
+    },
+    "product_id": {
+      "description": "The identifier of the product that was ordered",
+      "type": "bigint"
+    },
+    "order_total": {
+      "description": "The total cost of the order",
+      "type": "double"
+    }
+  },
+  "primary_key": [
+    "id"
+  ]
+}

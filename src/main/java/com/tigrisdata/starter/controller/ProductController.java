@@ -15,10 +15,9 @@ package com.tigrisdata.starter.controller;
 
 import com.tigrisdata.db.client.error.TigrisDBException;
 import com.tigrisdata.db.client.model.Filters;
-import com.tigrisdata.starter.generated.*;
-
 import com.tigrisdata.db.client.service.TigrisCollection;
 import com.tigrisdata.db.client.service.TigrisDatabase;
+import com.tigrisdata.starter.generated.Product;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -47,7 +46,7 @@ public class ProductController {
 
   @GetMapping("/{id}")
   public Product read(@PathVariable("id") int id) throws TigrisDBException {
-    return productTigrisCollection.readOne(Filters.eq("id", id));
+    return productTigrisCollection.readOne(Filters.eq("id", id)).get();
   }
 
   @DeleteMapping("/{id}")
