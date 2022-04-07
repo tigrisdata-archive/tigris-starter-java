@@ -1,25 +1,24 @@
 {
-  "name": "Product",
-  "description": "This document records the details of products available in tigris store",
+  "name": "product",
+  "description": "Collection of documents with details of products available",
   "properties": {
     "id": {
       "description": "A unique identifier for the product",
-      "type": "int"
+      "type": "bigint"
     },
     "name": {
       "description": "Name of the product",
-      "type": "string"
+      "type": "string",
+      "maxLength": 100
     },
     "quantity": {
-      "description": "number of products available in the store",
+      "description": "Number of products available in the store",
       "type": "int"
     },
     "price": {
-      "description": "price of the product",
+      "description": "Price of the product",
       "type": "double"
     }
   },
-  "primary_key": [
-    "id"
-  ]
+  "primary_key": ["id"]
 }

@@ -46,7 +46,7 @@ public class UserController {
 
   @GetMapping("/{id}")
   public User read(@PathVariable("id") int id) throws TigrisDBException {
-    return userTigrisCollection.readOne(Filters.eq("id", id));
+    return userTigrisCollection.readOne(Filters.eq("id", id)).get();
   }
 
   @DeleteMapping("/{id}")

@@ -1,21 +1,20 @@
 {
-  "name": "User",
-  "description": "This document records the details of user for tigris store",
+  "name": "user",
+  "description": "Collection of documents with details of users",
   "properties": {
     "id": {
       "description": "A unique identifier for the user",
-      "type": "int"
+      "type": "bigint"
     },
     "name": {
       "description": "Name of the user",
-      "type": "string"
+      "type": "string",
+      "maxLength": 100
     },
     "balance": {
-      "description": "user balance in USD",
+      "description": "User account balance",
       "type": "double"
     }
   },
-  "primary_key": [
-    "id"
-  ]
+  "primary_key": ["id"]
 }
