@@ -45,7 +45,7 @@ usage.
     <groupId>com.tigrisdata.tools.code-generator</groupId>
     <artifactId>maven-plugin</artifactId>
     <!-- we are still pre-release -->
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0-alpha.2</version>
 
     <executions>
         <execution>
@@ -70,7 +70,7 @@ represent your document.
 ```java
 User alice = new User(1,"Alice");
 
-TigrisCollection<User> userCollection=db.getCollection(User.class);
+TigrisCollection<User> userCollection = db.getCollection(User.class);
 userCollection.insert(alice);
 ```
 
@@ -83,4 +83,4 @@ Go to http://localhost:8080/swagger.html
 
 # Note
 
-We are still in pre-release and so `SNAPSHOT` artifacts are consumed.
+We are still in pre-release and so `SNAPSHOT` artifacts maybe consumed.
