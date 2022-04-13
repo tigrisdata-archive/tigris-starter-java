@@ -4,17 +4,18 @@
   "properties": {
     "id": {
       "description": "A unique identifier for the user",
-      "type": "bigint"
+      "type": "integer"
     },
     "name": {
       "description": "Name of the user",
-      "type": "string",
-      "maxLength": 100
+      "type": "string"
     },
     "balance": {
       "description": "User account balance",
-      "type": "double"
+      "type": "number"
     }
   },
-  "primary_key": ["id"]
+  "primary_key": [
+    "id"
+  ]
 }
