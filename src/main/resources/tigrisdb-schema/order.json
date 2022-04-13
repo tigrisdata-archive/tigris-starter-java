@@ -4,19 +4,19 @@
   "properties": {
     "id": {
       "description": "A unique identifier for the order",
-      "type": "bigint"
+      "type": "integer"
     },
     "user_id": {
       "description": "The identifier of the user that placed the order",
-      "type": "bigint"
+      "type": "integer"
     },
     "product_id": {
       "description": "The identifier of the product that was ordered",
-      "type": "bigint"
+      "type": "integer"
     },
     "order_total": {
       "description": "The total cost of the order",
-      "type": "double"
+      "type": "number"
     }
   },
   "primary_key": [

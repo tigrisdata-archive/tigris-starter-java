@@ -18,48 +18,56 @@ import com.tigrisdata.db.client.model.Filters;
 import com.tigrisdata.db.client.model.ReadFields;
 import com.tigrisdata.db.client.model.TransactionOptions;
 import com.tigrisdata.db.client.model.UpdateFields;
+import com.tigrisdata.db.client.service.TigrisCollection;
 import com.tigrisdata.db.client.service.TigrisDatabase;
 import com.tigrisdata.db.client.service.TransactionSession;
-import com.tigrisdata.db.client.service.TransactionTigrisCollection;
 import com.tigrisdata.starter.generated.Order;
 import com.tigrisdata.starter.generated.Product;
 import com.tigrisdata.starter.generated.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @RestController
-@RequestMapping("shop")
+@RequestMapping("order")
 public class OrderController {
   private final TigrisDatabase tigrisStarterDatabase;
-  private final AtomicLong orderIdSequence;
+  private final AtomicInteger orderIdSequence;
+  private final TigrisCollection<User> userCollection;
+  private final TigrisCollection<Product> productCollection;
+  private final TigrisCollection<Order> orderCollection;
+
 
   public OrderController(TigrisDatabase tigrisStarterDatabase) {
     this.tigrisStarterDatabase = tigrisStarterDatabase;
-    this.orderIdSequence = new AtomicLong();
+    this.orderIdSequence = new AtomicInteger();
+
+    this.userCollection = tigrisStarterDatabase.getCollection(User.class);
+    this.productCollection = tigrisStarterDatabase.getCollection(Product.class);
+    this.orderCollection = tigrisStarterDatabase.getCollection(Order.class);
+  }
+
+  @GetMapping("/{id}")
+  public Order read(@PathVariable("id") int id) throws TigrisDBException {
+    return orderCollection.readOne(Filters.eq("id", id)).get();
   }
 
   @PostMapping("{user_id}/{product_id}/{qty}")
   public ResponseEntity<String> purchase(
-      @RequestParam("user_id") long userId,
-      @RequestParam("product_id") long productId,
+      @RequestParam("user_id") int userId,
+      @RequestParam("product_id") int productId,
       @RequestParam("qty") int quantity)
       throws TigrisDBException {
     TransactionSession transactionSession =
         tigrisStarterDatabase.beginTransaction(new TransactionOptions());
     try {
-      TransactionTigrisCollection<User> userCollection =
-          transactionSession.getCollection(User.class);
-      TransactionTigrisCollection<Product> productCollection =
-          transactionSession.getCollection(Product.class);
-      TransactionTigrisCollection<Order> orderCollection =
-          transactionSession.getCollection(Order.class);
-
       User user = userCollection.readOne(Filters.eq("id", userId)).get();
       Product product =
           productCollection.read(Filters.eq("id", productId), ReadFields.empty()).next();
