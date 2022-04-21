@@ -5,15 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.tigrisdata</groupId>
     <artifactId>tigrisdb-example-java</artifactId>
-    <version>1.0.0-alpha.2</version>
+    <version>1.0.0-alpha.6</version>
 
     <dependencies>
-        <!-- generated models uses jackson annotations -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-            <version>2.13.2</version>
-        </dependency>
         <dependency>
             <groupId>com.tigrisdata</groupId>
             <artifactId>tigrisdb-client</artifactId>
@@ -27,58 +21,29 @@
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-ui</artifactId>
-            <version>1.6.6</version>
+            <version>1.6.7</version>
         </dependency>
     </dependencies>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>com.tigrisdata.tools.code-generator</groupId>
-                <artifactId>maven-plugin</artifactId>
-                <version>${tigrisdb.client.java.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>generate-sources</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <schemaDir>src/main/resources/tigrisdb-schema</schemaDir>
-                    <packageName>com.tigrisdata.starter.generated</packageName>
-                    <outputDirectory>target/generated-sources</outputDirectory>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
     <properties>
         <!-- we are still pre-release -->
-        <tigrisdb.client.java.version>1.0.0-alpha.2</tigrisdb.client.java.version>
+        <tigrisdb.client.java.version>1.0.0-alpha.6</tigrisdb.client.java.version>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
-    <repositories>
-        <repository>
-            <id>sonatype-snapshots</id>
-            <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
-            <snapshots>
-                <updatePolicy>always</updatePolicy>
-                <enabled>true</enabled>
-            </snapshots>
-            <layout>default</layout>
-        </repository>
-    </repositories>
-    <pluginRepositories>
-        <pluginRepository>
-            <id>sonatype-snapshots</id>
-            <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
-            <snapshots>
-                <updatePolicy>always</updatePolicy>
-                <enabled>true</enabled>
-            </snapshots>
-            <layout>default</layout>
-        </pluginRepository>
-    </pluginRepositories>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.10.1</version>
+                <configuration>
+                    <!-- For immutable models to work with jackson -->
+                    <compilerArgument>-parameters</compilerArgument>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
