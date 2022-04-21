@@ -13,18 +13,17 @@
  */
 package com.tigrisdata.starter.spring;
 
-import com.tigrisdata.db.client.model.TigrisAuthorizationToken;
+import com.tigrisdata.db.client.StandardTigrisDBClient;
+import com.tigrisdata.db.client.TigrisDBClient;
+import com.tigrisdata.db.client.TigrisDatabase;
+import com.tigrisdata.db.client.auth.TigrisAuthorizationToken;
 import com.tigrisdata.db.client.config.TigrisDBConfiguration;
-import com.tigrisdata.db.client.service.StandardTigrisDBClient;
-import com.tigrisdata.db.client.service.TigrisDBClient;
-import com.tigrisdata.db.client.service.TigrisDatabase;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class TigrisDBSpringConfiguration {
-
   @Bean
   public TigrisDatabase tigrisDatabase(
       @Value("${tigrisdb.db.name}") String dbName, TigrisDBClient client) {

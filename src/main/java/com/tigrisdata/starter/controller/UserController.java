@@ -13,11 +13,11 @@
  */
 package com.tigrisdata.starter.controller;
 
+import com.tigrisdata.db.client.Filters;
+import com.tigrisdata.db.client.TigrisCollection;
+import com.tigrisdata.db.client.TigrisDatabase;
 import com.tigrisdata.db.client.error.TigrisDBException;
-import com.tigrisdata.db.client.model.Filters;
-import com.tigrisdata.db.client.service.TigrisCollection;
-import com.tigrisdata.db.client.service.TigrisDatabase;
-import com.tigrisdata.starter.generated.User;
+import com.tigrisdata.starter.collections.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;

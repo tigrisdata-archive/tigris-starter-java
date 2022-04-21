@@ -13,14 +13,13 @@
  */
 package com.tigrisdata.starter.spring;
 
-import com.tigrisdata.db.client.model.DatabaseOptions;
-import com.tigrisdata.db.client.service.TigrisDBClient;
-import com.tigrisdata.db.client.service.TigrisDatabase;
+import com.tigrisdata.db.client.TigrisDBClient;
+import com.tigrisdata.starter.collections.Order;
+import com.tigrisdata.starter.collections.Product;
+import com.tigrisdata.starter.collections.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
-
-import java.io.File;
 
 public class TigrisDBInitializer implements CommandLineRunner {
 
@@ -37,11 +36,11 @@ public class TigrisDBInitializer implements CommandLineRunner {
   @Override
   public void run(String... args) throws Exception {
     log.info("createDbIfNotExists db: {}", dbName);
-    tigrisDBClient.createDatabaseIfNotExists(dbName, DatabaseOptions.DEFAULT_INSTANCE);
-
+    tigrisDBClient.createDatabaseIfNotExists(dbName);
     log.info("creating collections on db {}", dbName);
-    TigrisDatabase tigrisDatabase = tigrisDBClient.getDatabase(dbName);
-    tigrisDatabase.createCollectionsInTransaction(new File("src/main/resources/tigrisdb-schema"));
+    tigrisDBClient
+        .getDatabase(dbName)
+        .createOrUpdateCollections(User.class, Product.class, Order.class);
     log.info("Finished initializing TigrisDB");
   }
 }
