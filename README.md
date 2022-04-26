@@ -1,7 +1,7 @@
-# tigrisdb-starter-java
-A starter Java application for TigrisDB.
+# tigris-starter-java
+A starter Java application for Tigris.
 
-[![java-ci](https://github.com/tigrisdata/tigrisdb-example-java/actions/workflows/java-ci.yml/badge.svg?branch=main)](https://github.com/tigrisdata/tigrisdb-example-java/actions/workflows/java-ci.yml)
+[![java-ci](https://github.com/tigrisdata/tigris-starter-java/actions/workflows/java-ci.yml/badge.svg?branch=main)](https://github.com/tigrisdata/tigris-starter-java/actions/workflows/java-ci.yml)
 
 # Quick start
  - [documentation](https://docs.tigrisdata.com/quickstart/with-java)

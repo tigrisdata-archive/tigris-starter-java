@@ -22,17 +22,17 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class TigrisDBSpringConfiguration {
+public class TigrisSpringConfiguration {
   @Bean
   public TigrisDatabase tigrisDatabase(
-      @Value("${tigrisdb.db.name}") String dbName, TigrisClient client) {
+      @Value("${tigris.db.name}") String dbName, TigrisClient client) {
     return client.getDatabase(dbName);
   }
 
   @Bean
-  public TigrisClient tigrisDBClient(
-      @Value("${tigrisdb.server.url}") String serverURL,
-      @Value("${tigrisdb.network.usePlainText:false}") boolean usePlainText) {
+  public TigrisClient tigrisClient(
+      @Value("${tigris.server.url}") String serverURL,
+      @Value("${tigris.network.usePlainText:false}") boolean usePlainText) {
     TigrisConfiguration.NetworkConfig.Builder networkConfigBuilder =
             TigrisConfiguration.NetworkConfig.newBuilder();
     if (usePlainText) {
@@ -46,8 +46,8 @@ public class TigrisDBSpringConfiguration {
   }
 
   @Bean
-  public TigrisDBInitializer tigrisDBInitializr(
-          TigrisClient tigrisDBClient, @Value("${tigrisdb.db.name}") String dbName) {
-    return new TigrisDBInitializer(tigrisDBClient, dbName);
+  public TigrisInitializer tigrisInitializr(
+          TigrisClient tigrisClient, @Value("${tigris.db.name}") String dbName) {
+    return new TigrisInitializer(tigrisClient, dbName);
   }
 }

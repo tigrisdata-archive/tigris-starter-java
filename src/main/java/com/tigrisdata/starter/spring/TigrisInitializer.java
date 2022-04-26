@@ -22,24 +22,24 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 
-public class TigrisDBInitializer implements CommandLineRunner {
+public class TigrisInitializer implements CommandLineRunner {
 
-  private final TigrisClient tigrisDBClient;
+  private final TigrisClient tigrisClient;
   private final String dbName;
 
-  private static final Logger log = LoggerFactory.getLogger(TigrisDBInitializer.class);
+  private static final Logger log = LoggerFactory.getLogger(TigrisInitializer.class);
 
-  public TigrisDBInitializer(TigrisClient tigrisDBClient, String dbName) {
-    this.tigrisDBClient = tigrisDBClient;
+  public TigrisInitializer(TigrisClient tigrisClient, String dbName) {
+    this.tigrisClient = tigrisClient;
     this.dbName = dbName;
   }
 
   @Override
   public void run(String... args) throws Exception {
     log.info("createDbIfNotExists db: {}", dbName);
-    TigrisDatabase tigrisDatabase = tigrisDBClient.createDatabaseIfNotExists(dbName);
+    TigrisDatabase tigrisDatabase = tigrisClient.createDatabaseIfNotExists(dbName);
     log.info("creating collections on db {}", dbName);
     tigrisDatabase.createOrUpdateCollections(User.class, Product.class, Order.class);
-    log.info("Finished initializing TigrisDB");
+    log.info("Finished initializing Tigris");
   }
 }

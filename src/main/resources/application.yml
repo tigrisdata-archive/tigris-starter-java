@@ -1,9 +1,9 @@
 server:
   port: 8080
 
-tigrisdb:
+tigris:
   db:
-    name: "tigrisdb-starter-java"
+    name: "tigris-starter-java"
   server:
     url: "localhost:8081"
   network:
