@@ -13,8 +13,8 @@
  */
 package com.tigrisdata.starter.collections;
 
-import com.tigrisdata.db.annotation.TigrisDBCollectionField;
-import com.tigrisdata.db.annotation.TigrisDBCollectionPrimaryKey;
+import com.tigrisdata.db.annotation.TigrisField;
+import com.tigrisdata.db.annotation.TigrisPrimaryKey;
 import com.tigrisdata.db.type.TigrisCollectionType;
 
 import java.util.List;
@@ -22,18 +22,20 @@ import java.util.Objects;
 
 public class Order implements TigrisCollectionType {
 
-  @TigrisDBCollectionField(description = "A unique identifier for the order")
-  @TigrisDBCollectionPrimaryKey(1)
-  private final int id;
+  @TigrisField(description = "A unique identifier for the order")
+  @TigrisPrimaryKey(1)
+  private int id;
 
-  @TigrisDBCollectionField(description = "The identifier of the user that placed the order")
-  private final int userId;
+  @TigrisField(description = "The identifier of the user that placed the order")
+  private int userId;
 
-  @TigrisDBCollectionField(description = "The total cost of the order")
-  private final double orderTotal;
+  @TigrisField(description = "The total cost of the order")
+  private double orderTotal;
 
-  @TigrisDBCollectionField(description = "The list of products that are part of this order")
-  private final List<ProductItem> productItems;
+  @TigrisField(description = "The list of products that are part of this order")
+  private List<ProductItem> productItems;
+
+  public Order() {}
 
   public Order(int id, int userId, double orderTotal, List<ProductItem> productItems) {
     this.id = id;
@@ -43,11 +45,13 @@ public class Order implements TigrisCollectionType {
   }
 
   public static class ProductItem {
-    @TigrisDBCollectionField(description = "The product identifier")
-    private final int productId;
+    @TigrisField(description = "The product identifier")
+    private int productId;
 
-    @TigrisDBCollectionField(description = "The quantity of this product in this order")
-    private final int quantity;
+    @TigrisField(description = "The quantity of this product in this order")
+    private int quantity;
+
+    public ProductItem() {}
 
     public ProductItem(int productId, int quantity) {
       this.productId = productId;
@@ -60,6 +64,14 @@ public class Order implements TigrisCollectionType {
 
     public int getQuantity() {
       return quantity;
+    }
+
+    public void setProductId(int productId) {
+      this.productId = productId;
+    }
+
+    public void setQuantity(int quantity) {
+      this.quantity = quantity;
     }
 
     @Override
@@ -97,28 +109,35 @@ public class Order implements TigrisCollectionType {
     return productItems;
   }
 
+  public void setId(int id) {
+    this.id = id;
+  }
+
+  public void setUserId(int userId) {
+    this.userId = userId;
+  }
+
+  public void setOrderTotal(double orderTotal) {
+    this.orderTotal = orderTotal;
+  }
+
+  public void setProductItems(List<ProductItem> productItems) {
+    this.productItems = productItems;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-
     Order order = (Order) o;
-
-    if (id != order.id) return false;
-    if (userId != order.userId) return false;
-    if (Double.compare(order.orderTotal, orderTotal) != 0) return false;
-    return Objects.equals(productItems, order.productItems);
+    return id == order.id
+        && userId == order.userId
+        && Double.compare(order.orderTotal, orderTotal) == 0
+        && Objects.equals(productItems, order.productItems);
   }
 
   @Override
   public int hashCode() {
-    int result;
-    long temp;
-    result = id;
-    result = 31 * result + userId;
-    temp = Double.doubleToLongBits(orderTotal);
-    result = 31 * result + (int) (temp ^ (temp >>> 32));
-    result = 31 * result + (productItems != null ? productItems.hashCode() : 0);
-    return result;
+    return Objects.hash(id, userId, orderTotal, productItems);
   }
 }

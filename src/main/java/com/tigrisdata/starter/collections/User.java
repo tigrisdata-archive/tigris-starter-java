@@ -13,27 +13,24 @@
  */
 package com.tigrisdata.starter.collections;
 
-import com.tigrisdata.db.annotation.TigrisDBCollectionField;
-import com.tigrisdata.db.annotation.TigrisDBCollectionPrimaryKey;
+import com.tigrisdata.db.annotation.TigrisField;
+import com.tigrisdata.db.annotation.TigrisPrimaryKey;
 import com.tigrisdata.db.type.TigrisCollectionType;
 
 import java.util.Objects;
 
 public class User implements TigrisCollectionType {
-  @TigrisDBCollectionField(description = "A unique identifier for the user")
-  @TigrisDBCollectionPrimaryKey(1)
-  private final int id;
+  @TigrisField(description = "A unique identifier for the user")
+  @TigrisPrimaryKey(1)
+  private int id;
 
-  @TigrisDBCollectionField(description = "Name of the user")
-  private final String name;
+  @TigrisField(description = "Name of the user")
+  private String name;
 
-  @TigrisDBCollectionField(description = "User account balance")
-  private final double balance;
+  @TigrisField(description = "User account balance")
+  private double balance;
 
-  public User(int id, String name, double balance) {
-    this.id = id;
-    this.name = name;
-    this.balance = balance;
+  public User() {
   }
 
   public int getId() {
@@ -48,26 +45,30 @@ public class User implements TigrisCollectionType {
     return balance;
   }
 
+  public void setId(int id) {
+    this.id = id;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public void setBalance(double balance) {
+    this.balance = balance;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-
     User user = (User) o;
-
-    if (id != user.id) return false;
-    if (Double.compare(user.balance, balance) != 0) return false;
-    return Objects.equals(name, user.name);
+    return id == user.id
+        && Double.compare(user.balance, balance) == 0
+        && Objects.equals(name, user.name);
   }
 
   @Override
   public int hashCode() {
-    int result;
-    long temp;
-    result = id;
-    result = 31 * result + (name != null ? name.hashCode() : 0);
-    temp = Double.doubleToLongBits(balance);
-    result = 31 * result + (int) (temp ^ (temp >>> 32));
-    return result;
+    return Objects.hash(id, name, balance);
   }
 }

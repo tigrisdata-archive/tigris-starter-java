@@ -16,7 +16,7 @@ package com.tigrisdata.starter.controller;
 import com.tigrisdata.db.client.Filters;
 import com.tigrisdata.db.client.TigrisCollection;
 import com.tigrisdata.db.client.TigrisDatabase;
-import com.tigrisdata.db.client.error.TigrisDBException;
+import com.tigrisdata.db.client.error.TigrisException;
 import com.tigrisdata.starter.collections.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,18 +39,18 @@ public class UserController {
   }
 
   @PostMapping("/create")
-  public ResponseEntity<String> create(@RequestBody User user) throws TigrisDBException {
+  public ResponseEntity<String> create(@RequestBody User user) throws TigrisException {
     userTigrisCollection.insert(user);
     return ResponseEntity.status(HttpStatus.CREATED).body("User created");
   }
 
   @GetMapping("/{id}")
-  public User read(@PathVariable("id") int id) throws TigrisDBException {
+  public User read(@PathVariable("id") int id) throws TigrisException {
     return userTigrisCollection.readOne(Filters.eq("id", id)).get();
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<String> delete(@PathVariable("id") int id) throws TigrisDBException {
+  public ResponseEntity<String> delete(@PathVariable("id") int id) throws TigrisException {
     userTigrisCollection.delete(Filters.eq("id", id));
     return ResponseEntity.status(HttpStatus.OK).body("User deleted");
   }

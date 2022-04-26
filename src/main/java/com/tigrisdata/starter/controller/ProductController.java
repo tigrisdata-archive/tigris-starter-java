@@ -16,7 +16,7 @@ package com.tigrisdata.starter.controller;
 import com.tigrisdata.db.client.Filters;
 import com.tigrisdata.db.client.TigrisCollection;
 import com.tigrisdata.db.client.TigrisDatabase;
-import com.tigrisdata.db.client.error.TigrisDBException;
+import com.tigrisdata.db.client.error.TigrisException;
 import com.tigrisdata.starter.collections.Product;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,18 +39,18 @@ public class ProductController {
   }
 
   @PostMapping("/create")
-  public ResponseEntity<String> create(@RequestBody Product product) throws TigrisDBException {
+  public ResponseEntity<String> create(@RequestBody Product product) throws TigrisException {
     productTigrisCollection.insert(product);
     return ResponseEntity.status(HttpStatus.CREATED).body("product created");
   }
 
   @GetMapping("/{id}")
-  public Product read(@PathVariable("id") int id) throws TigrisDBException {
+  public Product read(@PathVariable("id") int id) throws TigrisException {
     return productTigrisCollection.readOne(Filters.eq("id", id)).get();
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<String> delete(@PathVariable("id") int id) throws TigrisDBException {
+  public ResponseEntity<String> delete(@PathVariable("id") int id) throws TigrisException {
     productTigrisCollection.delete(Filters.eq("id", id));
     return ResponseEntity.status(HttpStatus.OK).body("product deleted");
   }
