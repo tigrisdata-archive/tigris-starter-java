@@ -15,7 +15,7 @@ package com.tigrisdata.starter.controller;
 
 import com.tigrisdata.db.client.Filters;
 import com.tigrisdata.db.client.TigrisDatabase;
-import com.tigrisdata.db.client.error.TigrisDBException;
+import com.tigrisdata.db.client.error.TigrisException;
 import com.tigrisdata.starter.collections.Order;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,7 +36,7 @@ public class OrderController {
   }
 
   @GetMapping("/{id}")
-  public Order read(@PathVariable("id") int id) throws TigrisDBException {
+  public Order read(@PathVariable("id") int id) throws TigrisException {
     return tigrisStarterDatabase.getCollection(Order.class).readOne(Filters.eq("id", id)).get();
   }
 }

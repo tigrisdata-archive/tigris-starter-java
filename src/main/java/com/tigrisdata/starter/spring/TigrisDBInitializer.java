@@ -13,7 +13,8 @@
  */
 package com.tigrisdata.starter.spring;
 
-import com.tigrisdata.db.client.TigrisDBClient;
+import com.tigrisdata.db.client.TigrisClient;
+import com.tigrisdata.db.client.TigrisDatabase;
 import com.tigrisdata.starter.collections.Order;
 import com.tigrisdata.starter.collections.Product;
 import com.tigrisdata.starter.collections.User;
@@ -23,12 +24,12 @@ import org.springframework.boot.CommandLineRunner;
 
 public class TigrisDBInitializer implements CommandLineRunner {
 
-  private final TigrisDBClient tigrisDBClient;
+  private final TigrisClient tigrisDBClient;
   private final String dbName;
 
   private static final Logger log = LoggerFactory.getLogger(TigrisDBInitializer.class);
 
-  public TigrisDBInitializer(TigrisDBClient tigrisDBClient, String dbName) {
+  public TigrisDBInitializer(TigrisClient tigrisDBClient, String dbName) {
     this.tigrisDBClient = tigrisDBClient;
     this.dbName = dbName;
   }
@@ -36,11 +37,9 @@ public class TigrisDBInitializer implements CommandLineRunner {
   @Override
   public void run(String... args) throws Exception {
     log.info("createDbIfNotExists db: {}", dbName);
-    tigrisDBClient.createDatabaseIfNotExists(dbName);
+    TigrisDatabase tigrisDatabase = tigrisDBClient.createDatabaseIfNotExists(dbName);
     log.info("creating collections on db {}", dbName);
-    tigrisDBClient
-        .getDatabase(dbName)
-        .createOrUpdateCollections(User.class, Product.class, Order.class);
+    tigrisDatabase.createOrUpdateCollections(User.class, Product.class, Order.class);
     log.info("Finished initializing TigrisDB");
   }
 }

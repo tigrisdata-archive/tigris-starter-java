@@ -13,11 +13,10 @@
  */
 package com.tigrisdata.starter.spring;
 
-import com.tigrisdata.db.client.StandardTigrisDBClient;
-import com.tigrisdata.db.client.TigrisDBClient;
+import com.tigrisdata.db.client.StandardTigrisClient;
+import com.tigrisdata.db.client.TigrisClient;
 import com.tigrisdata.db.client.TigrisDatabase;
-import com.tigrisdata.db.client.auth.TigrisAuthorizationToken;
-import com.tigrisdata.db.client.config.TigrisDBConfiguration;
+import com.tigrisdata.db.client.config.TigrisConfiguration;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,35 +25,29 @@ import org.springframework.context.annotation.Configuration;
 public class TigrisDBSpringConfiguration {
   @Bean
   public TigrisDatabase tigrisDatabase(
-      @Value("${tigrisdb.db.name}") String dbName, TigrisDBClient client) {
+      @Value("${tigrisdb.db.name}") String dbName, TigrisClient client) {
     return client.getDatabase(dbName);
   }
 
   @Bean
-  public TigrisDBConfiguration tigrisDBConfiguration(
-      @Value("${tigrisdb.server.url}") String baseUrl,
+  public TigrisClient tigrisDBClient(
+      @Value("${tigrisdb.server.url}") String serverURL,
       @Value("${tigrisdb.network.usePlainText:false}") boolean usePlainText) {
-    TigrisDBConfiguration.NetworkConfig.NetworkConfigBuilder networkConfigBuilder =
-        TigrisDBConfiguration.NetworkConfig.newBuilder();
+    TigrisConfiguration.NetworkConfig.Builder networkConfigBuilder =
+            TigrisConfiguration.NetworkConfig.newBuilder();
     if (usePlainText) {
       networkConfigBuilder.usePlainText();
     }
-    return TigrisDBConfiguration.newBuilder(baseUrl)
-        .withNetwork(networkConfigBuilder.build())
-        .build();
-  }
-
-  @Bean
-  public TigrisDBClient tigrisDBClient(
-      @Value("${tigrisdb.authorization.token}") String token,
-      TigrisDBConfiguration tigrisDBConfiguration) {
-    return StandardTigrisDBClient.getInstance(
-        new TigrisAuthorizationToken(token), tigrisDBConfiguration);
+    TigrisConfiguration configuration =
+            TigrisConfiguration.newBuilder(serverURL)
+            .withNetwork(networkConfigBuilder.build())
+            .build();
+    return StandardTigrisClient.getInstance(configuration);
   }
 
   @Bean
   public TigrisDBInitializer tigrisDBInitializr(
-      TigrisDBClient tigrisDBClient, @Value("${tigrisdb.db.name}") String dbName) {
+          TigrisClient tigrisDBClient, @Value("${tigrisdb.db.name}") String dbName) {
     return new TigrisDBInitializer(tigrisDBClient, dbName);
   }
 }

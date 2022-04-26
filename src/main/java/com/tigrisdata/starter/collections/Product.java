@@ -13,26 +13,30 @@
  */
 package com.tigrisdata.starter.collections;
 
-import com.tigrisdata.db.annotation.TigrisDBCollectionField;
-import com.tigrisdata.db.annotation.TigrisDBCollectionPrimaryKey;
+import com.tigrisdata.db.annotation.TigrisCollection;
+import com.tigrisdata.db.annotation.TigrisField;
+import com.tigrisdata.db.annotation.TigrisPrimaryKey;
 import com.tigrisdata.db.type.TigrisCollectionType;
 
 import java.util.Objects;
 
+@TigrisCollection("product_collection")
 public class Product implements TigrisCollectionType {
 
-  @TigrisDBCollectionField(description = "A unique identifier for the product")
-  @TigrisDBCollectionPrimaryKey(1)
-  private final int id;
+  @TigrisField(description = "A unique identifier for the product")
+  @TigrisPrimaryKey(1)
+  private int id;
 
-  @TigrisDBCollectionField(description = "Name of the product")
-  private final String name;
+  @TigrisField(description = "Name of the product")
+  private String name;
 
-  @TigrisDBCollectionField(description = "Number of products available in the store")
-  private final int quantity;
+  @TigrisField(description = "Number of products available in the store")
+  private int quantity;
 
-  @TigrisDBCollectionField(description = "Price of the product")
-  private final double price;
+  @TigrisField(description = "Price of the product")
+  private double price;
+
+  public Product() {}
 
   public Product(int id, String name, int quantity, double price) {
     this.id = id;
@@ -57,28 +61,35 @@ public class Product implements TigrisCollectionType {
     return price;
   }
 
+  public void setId(int id) {
+    this.id = id;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public void setQuantity(int quantity) {
+    this.quantity = quantity;
+  }
+
+  public void setPrice(double price) {
+    this.price = price;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-
     Product product = (Product) o;
-
-    if (id != product.id) return false;
-    if (quantity != product.quantity) return false;
-    if (Double.compare(product.price, price) != 0) return false;
-    return Objects.equals(name, product.name);
+    return id == product.id
+        && quantity == product.quantity
+        && Double.compare(product.price, price) == 0
+        && Objects.equals(name, product.name);
   }
 
   @Override
   public int hashCode() {
-    int result;
-    long temp;
-    result = id;
-    result = 31 * result + (name != null ? name.hashCode() : 0);
-    result = 31 * result + quantity;
-    temp = Double.doubleToLongBits(price);
-    result = 31 * result + (int) (temp ^ (temp >>> 32));
-    return result;
+    return Objects.hash(id, name, quantity, price);
   }
 }
