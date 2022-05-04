@@ -8,8 +8,6 @@ tigris:
     url: "localhost:8081"
   network:
     usePlainText: true
-  authorization:
-    token: "some-token"
 
 springdoc:
   swagger-ui:
