@@ -28,6 +28,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("products")
 public class ProductController {
@@ -45,8 +47,12 @@ public class ProductController {
   }
 
   @GetMapping("/{id}")
-  public Product read(@PathVariable("id") int id) throws TigrisException {
-    return productTigrisCollection.readOne(Filters.eq("id", id)).get();
+  public ResponseEntity<Product> read(@PathVariable("id") int id) throws TigrisException {
+    Optional<Product> product = productTigrisCollection.readOne(Filters.eq("id", id));
+    if (product.isPresent()) {
+      return ResponseEntity.ok(product.get());
+    }
+    return ResponseEntity.notFound().build();
   }
 
   @DeleteMapping("/{id}")
