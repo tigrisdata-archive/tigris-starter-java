@@ -17,11 +17,13 @@ import com.tigrisdata.db.client.Filters;
 import com.tigrisdata.db.client.TigrisDatabase;
 import com.tigrisdata.db.client.error.TigrisException;
 import com.tigrisdata.starter.collections.Order;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @RestController
@@ -36,7 +38,12 @@ public class OrderController {
   }
 
   @GetMapping("/{id}")
-  public Order read(@PathVariable("id") int id) throws TigrisException {
-    return tigrisStarterDatabase.getCollection(Order.class).readOne(Filters.eq("id", id)).get();
+  public ResponseEntity<Order> read(@PathVariable("id") int id) throws TigrisException {
+    Optional<Order> order =
+        tigrisStarterDatabase.getCollection(Order.class).readOne(Filters.eq("id", id));
+    if (order.isPresent()) {
+      return ResponseEntity.ok(order.get());
+    }
+    return ResponseEntity.notFound().build();
   }
 }

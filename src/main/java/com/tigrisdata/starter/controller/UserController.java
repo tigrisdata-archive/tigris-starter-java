@@ -28,6 +28,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("users")
 public class UserController {
@@ -45,8 +47,12 @@ public class UserController {
   }
 
   @GetMapping("/{id}")
-  public User read(@PathVariable("id") int id) throws TigrisException {
-    return userTigrisCollection.readOne(Filters.eq("id", id)).get();
+  public ResponseEntity<User> read(@PathVariable("id") int id) throws TigrisException {
+    Optional<User> user = userTigrisCollection.readOne(Filters.eq("id", id));
+    if (user.isPresent()) {
+      return ResponseEntity.ok(user.get());
+    }
+    return ResponseEntity.notFound().build();
   }
 
   @DeleteMapping("/{id}")

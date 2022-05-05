@@ -34,20 +34,18 @@ public class TigrisSpringConfiguration {
       @Value("${tigris.server.url}") String serverURL,
       @Value("${tigris.network.usePlainText:false}") boolean usePlainText) {
     TigrisConfiguration.NetworkConfig.Builder networkConfigBuilder =
-            TigrisConfiguration.NetworkConfig.newBuilder();
+        TigrisConfiguration.NetworkConfig.newBuilder();
     if (usePlainText) {
       networkConfigBuilder.usePlainText();
     }
     TigrisConfiguration configuration =
-            TigrisConfiguration.newBuilder(serverURL)
-            .withNetwork(networkConfigBuilder.build())
-            .build();
+        TigrisConfiguration.newBuilder(serverURL).withNetwork(networkConfigBuilder.build()).build();
     return StandardTigrisClient.getInstance(configuration);
   }
 
   @Bean
   public TigrisInitializer tigrisInitializr(
-          TigrisClient tigrisClient, @Value("${tigris.db.name}") String dbName) {
+      TigrisClient tigrisClient, @Value("${tigris.db.name}") String dbName) {
     return new TigrisInitializer(tigrisClient, dbName);
   }
 }

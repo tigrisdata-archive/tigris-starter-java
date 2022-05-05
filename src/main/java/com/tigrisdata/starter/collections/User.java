@@ -30,8 +30,7 @@ public class User implements TigrisCollectionType {
   @TigrisField(description = "User account balance")
   private double balance;
 
-  public User() {
-  }
+  public User() {}
 
   public int getId() {
     return id;
