@@ -1,18 +1,18 @@
-# tigris-starter-java
-A starter Java application for Tigris.
+# RESTful Web App with Java and Tigris
 
 [![java-ci](https://github.com/tigrisdata/tigris-starter-java/actions/workflows/java-ci.yml/badge.svg?branch=main)](https://github.com/tigrisdata/tigris-starter-java/actions/workflows/java-ci.yml)
 
-# Quick start
- - [documentation](https://docs.tigrisdata.com/quickstart/with-java)
+This is a Java web application that accepts HTTP requests to store and 
+retrieve data in the Tigris backend. The application uses Spring 
+Boot framework.
 
-# Restful endpoints
+# Documentation
 
-This starter application exposes restful endpoints, to play around with it. 
-Go to http://localhost:8080/swagger.html
+The documentation with code walk-through can be found
+[here](https://docs.tigrisdata.com/guides/rest-webapp-java).
+
+# Testing the application
+
+Try out the REST API at http://localhost:8080/swagger.html
 
 ![swagger_ui_screenshot.png](swagger_ui_screenshot.png)
-
-# Note
-
-We are still in pre-release and so `SNAPSHOT` artifacts maybe consumed.
