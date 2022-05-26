@@ -24,8 +24,8 @@ import java.util.Objects;
 public class Product implements TigrisCollectionType {
 
   @TigrisField(description = "A unique identifier for the product")
-  @TigrisPrimaryKey(1)
-  private int id;
+  @TigrisPrimaryKey(order = 1, autoGenerate = true)
+  private Integer id;
 
   @TigrisField(description = "Name of the product")
   private String name;
@@ -38,14 +38,14 @@ public class Product implements TigrisCollectionType {
 
   public Product() {}
 
-  public Product(int id, String name, int quantity, double price) {
+  public Product(Integer id, String name, int quantity, double price) {
     this.id = id;
     this.name = name;
     this.quantity = quantity;
     this.price = price;
   }
 
-  public int getId() {
+  public Integer getId() {
     return id;
   }
 
@@ -61,7 +61,7 @@ public class Product implements TigrisCollectionType {
     return price;
   }
 
-  public void setId(int id) {
+  public void setId(Integer id) {
     this.id = id;
   }
 
@@ -82,10 +82,8 @@ public class Product implements TigrisCollectionType {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Product product = (Product) o;
-    return id == product.id
-        && quantity == product.quantity
-        && Double.compare(product.price, price) == 0
-        && Objects.equals(name, product.name);
+    return quantity == product.quantity && Double.compare(product.price, price) == 0 && Objects.equals(id,
+            product.id) && Objects.equals(name, product.name);
   }
 
   @Override

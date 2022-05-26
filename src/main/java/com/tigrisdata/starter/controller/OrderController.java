@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @RestController
 @RequestMapping("order")
@@ -37,14 +36,11 @@ public class OrderController {
   private final TigrisCollection<Product> productCollection;
   private final TigrisCollection<Order> orderCollection;
 
-  private final AtomicInteger orderIdSequence;
-
   public OrderController(TigrisDatabase tigrisStarterDatabase) {
     this.tigrisStarterDatabase = tigrisStarterDatabase;
     this.userCollection = tigrisStarterDatabase.getCollection(User.class);
     this.productCollection = tigrisStarterDatabase.getCollection(Product.class);
     this.orderCollection = tigrisStarterDatabase.getCollection(Order.class);
-    this.orderIdSequence = new AtomicInteger();
   }
 
   @GetMapping("/{id}")
