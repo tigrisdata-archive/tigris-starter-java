@@ -21,8 +21,8 @@ import java.util.Objects;
 
 public class User implements TigrisCollectionType {
   @TigrisField(description = "A unique identifier for the user")
-  @TigrisPrimaryKey(1)
-  private int id;
+  @TigrisPrimaryKey(order = 1, autoGenerate = true)
+  private Integer id;
 
   @TigrisField(description = "Name of the user")
   private String name;
@@ -32,7 +32,7 @@ public class User implements TigrisCollectionType {
 
   public User() {}
 
-  public int getId() {
+  public Integer getId() {
     return id;
   }
 
@@ -44,7 +44,7 @@ public class User implements TigrisCollectionType {
     return balance;
   }
 
-  public void setId(int id) {
+  public void setId(Integer id) {
     this.id = id;
   }
 
@@ -61,9 +61,7 @@ public class User implements TigrisCollectionType {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     User user = (User) o;
-    return id == user.id
-        && Double.compare(user.balance, balance) == 0
-        && Objects.equals(name, user.name);
+    return Double.compare(user.balance, balance) == 0 && Objects.equals(id, user.id) && Objects.equals(name, user.name);
   }
 
   @Override

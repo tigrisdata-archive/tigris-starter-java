@@ -23,8 +23,8 @@ import java.util.Objects;
 public class Order implements TigrisCollectionType {
 
   @TigrisField(description = "A unique identifier for the order")
-  @TigrisPrimaryKey(1)
-  private int id;
+  @TigrisPrimaryKey(order = 1, autoGenerate = true)
+  private Integer id;
 
   @TigrisField(description = "The identifier of the user that placed the order")
   private int userId;
@@ -37,8 +37,7 @@ public class Order implements TigrisCollectionType {
 
   public Order() {}
 
-  public Order(int id, int userId, double orderTotal, List<ProductItem> productItems) {
-    this.id = id;
+  public Order(int userId, double orderTotal, List<ProductItem> productItems) {
     this.userId = userId;
     this.orderTotal = orderTotal;
     this.productItems = productItems;
@@ -93,7 +92,7 @@ public class Order implements TigrisCollectionType {
     }
   }
 
-  public int getId() {
+  public Integer getId() {
     return id;
   }
 
@@ -109,7 +108,7 @@ public class Order implements TigrisCollectionType {
     return productItems;
   }
 
-  public void setId(int id) {
+  public void setId(Integer id) {
     this.id = id;
   }
 
@@ -130,10 +129,8 @@ public class Order implements TigrisCollectionType {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Order order = (Order) o;
-    return id == order.id
-        && userId == order.userId
-        && Double.compare(order.orderTotal, orderTotal) == 0
-        && Objects.equals(productItems, order.productItems);
+    return userId == order.userId && Double.compare(order.orderTotal, orderTotal) == 0 && Objects.equals(id,
+            order.id) && Objects.equals(productItems, order.productItems);
   }
 
   @Override

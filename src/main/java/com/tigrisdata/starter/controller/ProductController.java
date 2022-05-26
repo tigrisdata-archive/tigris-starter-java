@@ -14,6 +14,7 @@
 package com.tigrisdata.starter.controller;
 
 import com.tigrisdata.db.client.Filters;
+import com.tigrisdata.db.client.InsertResponse;
 import com.tigrisdata.db.client.TigrisCollection;
 import com.tigrisdata.db.client.TigrisDatabase;
 import com.tigrisdata.db.client.error.TigrisException;
@@ -42,8 +43,8 @@ public class ProductController {
 
   @PostMapping("/create")
   public ResponseEntity<String> create(@RequestBody Product product) throws TigrisException {
-    productTigrisCollection.insert(product);
-    return ResponseEntity.status(HttpStatus.CREATED).body("product created");
+    InsertResponse insertResponse = productTigrisCollection.insert(product);
+    return ResponseEntity.status(HttpStatus.CREATED).body("product created with id = "+insertResponse.getGeneratedKeys()[0].get("id"));
   }
 
   @GetMapping("/{id}")
