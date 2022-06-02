@@ -43,7 +43,7 @@ public class UserController {
 
   @PostMapping("/create")
   public ResponseEntity<String> create(@RequestBody User user) throws TigrisException {
-    InsertResponse insertResponse = userTigrisCollection.insert(user);
+    InsertResponse<User> insertResponse = userTigrisCollection.insert(user);
     return ResponseEntity.status(HttpStatus.CREATED).body("User created with id = "+insertResponse.getGeneratedKeys()[0].get("id"));
   }
 
