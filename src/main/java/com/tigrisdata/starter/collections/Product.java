@@ -25,7 +25,7 @@ public class Product implements TigrisCollectionType {
 
   @TigrisField(description = "A unique identifier for the product")
   @TigrisPrimaryKey(order = 1, autoGenerate = true)
-  private Integer id;
+  private int id;
 
   @TigrisField(description = "Name of the product")
   private String name;
@@ -38,39 +38,39 @@ public class Product implements TigrisCollectionType {
 
   public Product() {}
 
-  public Product(Integer id, String name, int quantity, double price) {
+  public Product(int id, String name, int quantity, double price) {
     this.id = id;
     this.name = name;
     this.quantity = quantity;
     this.price = price;
   }
 
-  public Integer getId() {
+  public int getId() {
     return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
   }
 
   public String getName() {
     return name;
   }
 
-  public int getQuantity() {
-    return quantity;
-  }
-
-  public double getPrice() {
-    return price;
-  }
-
-  public void setId(Integer id) {
-    this.id = id;
-  }
-
   public void setName(String name) {
     this.name = name;
   }
 
+  public int getQuantity() {
+    return quantity;
+  }
+
   public void setQuantity(int quantity) {
     this.quantity = quantity;
+  }
+
+  public double getPrice() {
+    return price;
   }
 
   public void setPrice(double price) {
@@ -82,8 +82,10 @@ public class Product implements TigrisCollectionType {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Product product = (Product) o;
-    return quantity == product.quantity && Double.compare(product.price, price) == 0 && Objects.equals(id,
-            product.id) && Objects.equals(name, product.name);
+    return quantity == product.quantity
+        && Double.compare(product.price, price) == 0
+        && Objects.equals(id, product.id)
+        && Objects.equals(name, product.name);
   }
 
   @Override

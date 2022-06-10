@@ -24,7 +24,7 @@ public class Order implements TigrisCollectionType {
 
   @TigrisField(description = "A unique identifier for the order")
   @TigrisPrimaryKey(order = 1, autoGenerate = true)
-  private Integer id;
+  private int id;
 
   @TigrisField(description = "The identifier of the user that placed the order")
   private int userId;
@@ -41,6 +41,54 @@ public class Order implements TigrisCollectionType {
     this.userId = userId;
     this.orderTotal = orderTotal;
     this.productItems = productItems;
+  }
+
+  public int getId() {
+    return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
+  }
+
+  public int getUserId() {
+    return userId;
+  }
+
+  public void setUserId(int userId) {
+    this.userId = userId;
+  }
+
+  public double getOrderTotal() {
+    return orderTotal;
+  }
+
+  public void setOrderTotal(double orderTotal) {
+    this.orderTotal = orderTotal;
+  }
+
+  public List<ProductItem> getProductItems() {
+    return productItems;
+  }
+
+  public void setProductItems(List<ProductItem> productItems) {
+    this.productItems = productItems;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Order order = (Order) o;
+    return userId == order.userId
+        && Double.compare(order.orderTotal, orderTotal) == 0
+        && Objects.equals(id, order.id)
+        && Objects.equals(productItems, order.productItems);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, userId, orderTotal, productItems);
   }
 
   public static class ProductItem {
@@ -61,12 +109,12 @@ public class Order implements TigrisCollectionType {
       return productId;
     }
 
-    public int getQuantity() {
-      return quantity;
-    }
-
     public void setProductId(int productId) {
       this.productId = productId;
+    }
+
+    public int getQuantity() {
+      return quantity;
     }
 
     public void setQuantity(int quantity) {
@@ -90,51 +138,5 @@ public class Order implements TigrisCollectionType {
       result = 31 * result + quantity;
       return result;
     }
-  }
-
-  public Integer getId() {
-    return id;
-  }
-
-  public int getUserId() {
-    return userId;
-  }
-
-  public double getOrderTotal() {
-    return orderTotal;
-  }
-
-  public List<ProductItem> getProductItems() {
-    return productItems;
-  }
-
-  public void setId(Integer id) {
-    this.id = id;
-  }
-
-  public void setUserId(int userId) {
-    this.userId = userId;
-  }
-
-  public void setOrderTotal(double orderTotal) {
-    this.orderTotal = orderTotal;
-  }
-
-  public void setProductItems(List<ProductItem> productItems) {
-    this.productItems = productItems;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    Order order = (Order) o;
-    return userId == order.userId && Double.compare(order.orderTotal, orderTotal) == 0 && Objects.equals(id,
-            order.id) && Objects.equals(productItems, order.productItems);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, userId, orderTotal, productItems);
   }
 }

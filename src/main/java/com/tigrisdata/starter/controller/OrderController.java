@@ -47,10 +47,6 @@ public class OrderController {
   public ResponseEntity<Order> read(@PathVariable("id") int id) throws TigrisException {
     Optional<Order> order =
         tigrisStarterDatabase.getCollection(Order.class).readOne(Filters.eq("id", id));
-    if (order.isPresent()) {
-      return ResponseEntity.ok(order.get());
-    }
-    return ResponseEntity.notFound().build();
+    return order.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
   }
-
 }
