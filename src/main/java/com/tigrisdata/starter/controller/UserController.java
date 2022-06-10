@@ -44,16 +44,13 @@ public class UserController {
   @PostMapping("/create")
   public ResponseEntity<String> create(@RequestBody User user) throws TigrisException {
     InsertResponse<User> insertResponse = userTigrisCollection.insert(user);
-    return ResponseEntity.status(HttpStatus.CREATED).body("User created with id = "+insertResponse.getGeneratedKeys()[0].get("id"));
+    return ResponseEntity.status(HttpStatus.CREATED).body("User created with id = " + user.getId());
   }
 
   @GetMapping("/{id}")
   public ResponseEntity<User> read(@PathVariable("id") int id) throws TigrisException {
     Optional<User> user = userTigrisCollection.readOne(Filters.eq("id", id));
-    if (user.isPresent()) {
-      return ResponseEntity.ok(user.get());
-    }
-    return ResponseEntity.notFound().build();
+    return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
   }
 
   @DeleteMapping("/{id}")

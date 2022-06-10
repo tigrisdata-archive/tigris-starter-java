@@ -24,10 +24,9 @@ import org.springframework.boot.CommandLineRunner;
 
 public class TigrisInitializer implements CommandLineRunner {
 
+  private static final Logger log = LoggerFactory.getLogger(TigrisInitializer.class);
   private final TigrisClient tigrisClient;
   private final String dbName;
-
-  private static final Logger log = LoggerFactory.getLogger(TigrisInitializer.class);
 
   public TigrisInitializer(TigrisClient tigrisClient, String dbName) {
     this.tigrisClient = tigrisClient;

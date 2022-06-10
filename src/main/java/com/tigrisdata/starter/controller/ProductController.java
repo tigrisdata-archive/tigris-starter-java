@@ -14,7 +14,6 @@
 package com.tigrisdata.starter.controller;
 
 import com.tigrisdata.db.client.Filters;
-import com.tigrisdata.db.client.InsertResponse;
 import com.tigrisdata.db.client.TigrisCollection;
 import com.tigrisdata.db.client.TigrisDatabase;
 import com.tigrisdata.db.client.error.TigrisException;
@@ -43,17 +42,15 @@ public class ProductController {
 
   @PostMapping("/create")
   public ResponseEntity<String> create(@RequestBody Product product) throws TigrisException {
-    InsertResponse insertResponse = productTigrisCollection.insert(product);
-    return ResponseEntity.status(HttpStatus.CREATED).body("product created with id = "+insertResponse.getGeneratedKeys()[0].get("id"));
+    productTigrisCollection.insert(product);
+    return ResponseEntity.status(HttpStatus.CREATED)
+        .body("product created with id = " + product.getId());
   }
 
   @GetMapping("/{id}")
   public ResponseEntity<Product> read(@PathVariable("id") int id) throws TigrisException {
     Optional<Product> product = productTigrisCollection.readOne(Filters.eq("id", id));
-    if (product.isPresent()) {
-      return ResponseEntity.ok(product.get());
-    }
-    return ResponseEntity.notFound().build();
+    return product.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
   }
 
   @DeleteMapping("/{id}")
