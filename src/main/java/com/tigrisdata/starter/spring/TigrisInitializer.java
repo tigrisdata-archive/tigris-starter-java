@@ -39,6 +39,21 @@ public class TigrisInitializer implements CommandLineRunner {
     TigrisDatabase tigrisDatabase = tigrisClient.createDatabaseIfNotExists(dbName);
     log.info("creating collections on db {}", dbName);
     tigrisDatabase.createOrUpdateCollections(User.class, Product.class, Order.class);
+
+    // stream changes as they happen on orders collection
+    tigrisDatabase
+        .getCollection(Order.class)
+        .events()
+        .forEachRemaining(
+            streamEvent -> {
+              log.info(
+                  "CHANGES: collection={}, operation={}, data={}, txId={}",
+                  streamEvent.getCollection(),
+                  streamEvent.getOp(),
+                  streamEvent.getData(),
+                  streamEvent.getTxId());
+            });
+
     log.info("Finished initializing Tigris");
   }
 }
