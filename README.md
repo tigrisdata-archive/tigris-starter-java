@@ -9,7 +9,7 @@ Boot framework.
 # Documentation
 
 The documentation with code walk-through can be found
-[here](https://docs.tigrisdata.com/guides/rest-webapp-java).
+[here](https://docs.tigrisdata.com/quickstart).
 
 # Testing the application
 

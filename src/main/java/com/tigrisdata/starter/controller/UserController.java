@@ -18,7 +18,12 @@ import com.tigrisdata.db.client.InsertResponse;
 import com.tigrisdata.db.client.TigrisCollection;
 import com.tigrisdata.db.client.TigrisDatabase;
 import com.tigrisdata.db.client.error.TigrisException;
+import com.tigrisdata.db.client.search.SearchRequestOptions;
+import com.tigrisdata.db.client.search.SearchResult;
+import com.tigrisdata.starter.ConversionUtil;
 import com.tigrisdata.starter.collections.User;
+import com.tigrisdata.starter.models.SearchRequest;
+import java.util.Optional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,8 +33,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping("users")
@@ -51,6 +54,16 @@ public class UserController {
   public ResponseEntity<User> read(@PathVariable("id") int id) throws TigrisException {
     Optional<User> user = userTigrisCollection.readOne(Filters.eq("id", id));
     return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+  }
+
+  @PostMapping("/search")
+  public ResponseEntity<SearchResult<User>> search(@RequestBody SearchRequest request)
+      throws TigrisException {
+    Optional<SearchResult<User>> result = userTigrisCollection.search(
+        ConversionUtil.toInternalSearchRequest(request),
+        SearchRequestOptions.getDefault());
+
+    return result.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
   }
 
   @DeleteMapping("/{id}")
