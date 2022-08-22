@@ -3,7 +3,7 @@ server:
 
 tigris:
   db:
-    name: "tigris-starter-java"
+    name: "tigris_starter_java"
   server:
     url: "localhost:8081"
   network:
