@@ -1,6 +1,8 @@
 server:
   port: 8080
 
+
+## Local configuration
 tigris:
   db:
     name: "tigris_starter_java"

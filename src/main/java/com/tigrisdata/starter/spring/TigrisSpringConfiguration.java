@@ -17,12 +17,19 @@ import com.tigrisdata.db.client.StandardTigrisClient;
 import com.tigrisdata.db.client.TigrisClient;
 import com.tigrisdata.db.client.TigrisDatabase;
 import com.tigrisdata.db.client.config.TigrisConfiguration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.Optional;
+
 @Configuration
 public class TigrisSpringConfiguration {
+
+  private static final Logger log = LoggerFactory.getLogger(TigrisSpringConfiguration.class);
+
   @Bean
   public TigrisDatabase tigrisDatabase(
       @Value("${tigris.db.name}") String dbName, TigrisClient client) {
@@ -32,15 +39,26 @@ public class TigrisSpringConfiguration {
   @Bean
   public TigrisClient tigrisClient(
       @Value("${tigris.server.url}") String serverURL,
-      @Value("${tigris.network.usePlainText:false}") boolean usePlainText) {
-    TigrisConfiguration.NetworkConfig.Builder networkConfigBuilder =
-        TigrisConfiguration.NetworkConfig.newBuilder();
+      @Value("${tigris.network.usePlainText:false}") boolean usePlainText,
+      @Value("${tigris.auth.appId:#{null}}") Optional<String> applicationId,
+      @Value("${tigris.auth.appSecret:#{null}}") Optional<String> applicationSecret) {
+
+    log.info("Initializing tigris client with server.url={}", serverURL);
+
+    TigrisConfiguration.Builder configBuilder = TigrisConfiguration.newBuilder(serverURL);
+
     if (usePlainText) {
-      networkConfigBuilder.usePlainText();
+      // no TLS
+      configBuilder.withNetwork(
+          TigrisConfiguration.NetworkConfig.newBuilder().usePlainText().build());
     }
-    TigrisConfiguration configuration =
-        TigrisConfiguration.newBuilder(serverURL).withNetwork(networkConfigBuilder.build()).build();
-    return StandardTigrisClient.getInstance(configuration);
+
+    if (applicationId.isPresent() && applicationSecret.isPresent()) {
+      configBuilder.withAuthConfig(
+          new TigrisConfiguration.AuthConfig(applicationId.get(), applicationSecret.get()));
+    }
+
+    return StandardTigrisClient.getInstance(configBuilder.build());
   }
 
   @Bean
