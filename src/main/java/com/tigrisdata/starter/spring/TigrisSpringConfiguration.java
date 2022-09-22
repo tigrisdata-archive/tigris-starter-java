@@ -40,8 +40,8 @@ public class TigrisSpringConfiguration {
   public TigrisClient tigrisClient(
       @Value("${tigris.server.url}") String serverURL,
       @Value("${tigris.network.usePlainText:false}") boolean usePlainText,
-      @Value("${tigris.auth.appId:#{null}}") Optional<String> applicationId,
-      @Value("${tigris.auth.appSecret:#{null}}") Optional<String> applicationSecret) {
+      @Value("${tigris.auth.clientId:#{null}}") Optional<String> clientId,
+      @Value("${tigris.auth.clientSecret:#{null}}") Optional<String> clientSecret) {
 
     log.info("Initializing tigris client with server.url={}", serverURL);
 
@@ -53,9 +53,9 @@ public class TigrisSpringConfiguration {
           TigrisConfiguration.NetworkConfig.newBuilder().usePlainText().build());
     }
 
-    if (applicationId.isPresent() && applicationSecret.isPresent()) {
+    if (clientId.isPresent() && clientSecret.isPresent()) {
       configBuilder.withAuthConfig(
-          new TigrisConfiguration.AuthConfig(applicationId.get(), applicationSecret.get()));
+          new TigrisConfiguration.AuthConfig(clientId.get(), clientSecret.get()));
     }
 
     return StandardTigrisClient.getInstance(configBuilder.build());

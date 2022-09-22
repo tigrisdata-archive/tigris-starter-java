@@ -11,8 +11,8 @@ tigris:
   network:
     usePlainText: false
   auth:
-    appId: "your-tigris-app-id"
-    appSecret: "your-tigris-app-secret"
+    clientId: "your-tigris-app-id"
+    clientSecret: "your-tigris-app-secret"
 
 springdoc:
   swagger-ui:
@@ -22,6 +22,6 @@ springdoc:
 ## this is to avoid exposing tigris secrets on actuator endpoints
 endpoints:
   env:
-    keys-to-sanitize: tigris.db.auth.appId,tigris.db.auth.appSecret
+    keys-to-sanitize: tigris.db.auth.clientId,tigris.db.auth.clientSecret
   configprops:
-    keys-to-sanitize: tigris.db.auth.appId,tigris.db.auth.appSecret
+    keys-to-sanitize: tigris.db.auth.clientId,tigris.db.auth.clientSecret
