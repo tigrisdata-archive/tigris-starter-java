@@ -43,10 +43,7 @@ public class TigrisSpringConfiguration {
       @Value("${tigris.auth.clientId:#{null}}") Optional<String> clientId,
       @Value("${tigris.auth.clientSecret:#{null}}") Optional<String> clientSecret) {
 
-    log.info("Initializing tigris client with server.url={}", serverURL);
-
     TigrisConfiguration.Builder configBuilder = TigrisConfiguration.newBuilder(serverURL);
-
     if (usePlainText) {
       // no TLS
       configBuilder.withNetwork(
@@ -58,7 +55,9 @@ public class TigrisSpringConfiguration {
           new TigrisConfiguration.AuthConfig(clientId.get(), clientSecret.get()));
     }
 
-    return StandardTigrisClient.getInstance(configBuilder.build());
+    TigrisConfiguration configuration = configBuilder.build();
+    log.info("Initializing tigris client with server.url={}", configuration.getServerURL());
+    return StandardTigrisClient.getInstance(configuration);
   }
 
   @Bean
