@@ -7,9 +7,7 @@ tigris:
   db:
     name: "tigris_starter_java"
   server:
-    url: "api.preview.tigrisdata.cloud:443"
-  network:
-    usePlainText: false
+    url: "api.preview.tigrisdata.cloud"
   auth:
     clientId: "your-tigris-app-id"
     clientSecret: "your-tigris-app-secret"
