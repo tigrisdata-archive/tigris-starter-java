@@ -43,7 +43,7 @@ public class OrderController {
     this.orderCollection = tigrisStarterDatabase.getCollection(Order.class);
   }
 
-  @GetMapping("/{id}")
+  @GetMapping("/read/{id}")
   public ResponseEntity<Order> read(@PathVariable("id") int id) throws TigrisException {
     Optional<Order> order =
         tigrisStarterDatabase.getCollection(Order.class).readOne(Filters.eq("id", id));

@@ -50,7 +50,7 @@ public class ProductController {
         .body("product created with id = " + product.getId());
   }
 
-  @GetMapping("/{id}")
+  @GetMapping("/read/{id}")
   public ResponseEntity<Product> read(@PathVariable("id") int id) throws TigrisException {
     Optional<Product> product = productTigrisCollection.readOne(Filters.eq("id", id));
     return product.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
@@ -66,7 +66,7 @@ public class ProductController {
     return result.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
   }
 
-  @DeleteMapping("/{id}")
+  @DeleteMapping("/delete/{id}")
   public ResponseEntity<String> delete(@PathVariable("id") int id) throws TigrisException {
     productTigrisCollection.delete(Filters.eq("id", id));
     return ResponseEntity.status(HttpStatus.OK).body("product deleted");
