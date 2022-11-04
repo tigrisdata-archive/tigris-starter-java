@@ -1,16 +1,20 @@
 server:
   port: 8080
 
-
 ## Tigris cloud configuration
 tigris:
   db:
     name: "tigris_starter_java"
+    collectionClasses: com.tigrisdata.starter.collections.Order,com.tigrisdata.starter.collections.Product,com.tigrisdata.starter.collections.User
   server:
     url: "api.preview.tigrisdata.cloud"
   auth:
     clientId: "your-tigris-app-id"
     clientSecret: "your-tigris-app-secret"
+  sync-client:
+    enabled: true
+    initializer:
+      enabled: true
 
 springdoc:
   swagger-ui:
@@ -20,6 +24,6 @@ springdoc:
 ## this is to avoid exposing tigris secrets on actuator endpoints
 endpoints:
   env:
-    keys-to-sanitize: tigris.db.auth.clientId,tigris.db.auth.clientSecret
+    keys-to-sanitize: tigris.auth.clientId,tigris.auth.clientSecret
   configprops:
-    keys-to-sanitize: tigris.db.auth.clientId,tigris.db.auth.clientSecret
+    keys-to-sanitize: tigris.auth.clientId,tigris.auth.clientSecret

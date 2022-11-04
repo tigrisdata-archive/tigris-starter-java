@@ -1,15 +1,19 @@
 server:
   port: 8080
 
-
 ## Local configuration
 tigris:
   db:
     name: "tigris_starter_java"
+    collectionClasses: com.tigrisdata.starter.collections.Order,com.tigrisdata.starter.collections.Product,com.tigrisdata.starter.collections.User
   server:
     url: "localhost:8081"
   network:
     usePlainText: true
+  sync-client:
+    enabled: true
+    initializer:
+      enabled: true
 
 springdoc:
   swagger-ui:

@@ -50,7 +50,7 @@ public class UserController {
     return ResponseEntity.status(HttpStatus.CREATED).body("User created with id = " + user.getId());
   }
 
-  @GetMapping("/{id}")
+  @GetMapping("/read/{id}")
   public ResponseEntity<User> read(@PathVariable("id") int id) throws TigrisException {
     Optional<User> user = userTigrisCollection.readOne(Filters.eq("id", id));
     return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
@@ -66,7 +66,7 @@ public class UserController {
     return result.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
   }
 
-  @DeleteMapping("/{id}")
+  @DeleteMapping("/delete/{id}")
   public ResponseEntity<String> delete(@PathVariable("id") int id) throws TigrisException {
     userTigrisCollection.delete(Filters.eq("id", id));
     return ResponseEntity.status(HttpStatus.OK).body("User deleted");

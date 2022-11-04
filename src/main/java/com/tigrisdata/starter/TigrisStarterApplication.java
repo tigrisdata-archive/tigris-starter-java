@@ -18,7 +18,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class TigrisStarterApplication {
-
   public static void main(String[] args) {
     new SpringApplication(TigrisStarterApplication.class).run(args);
   }
