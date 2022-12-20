@@ -3,8 +3,9 @@ server:
 
 ## Local configuration
 tigris:
-  db:
+  project:
     name: "tigris_starter_java"
+  db:
     collectionClasses: com.tigrisdata.starter.collections.Order,com.tigrisdata.starter.collections.Product,com.tigrisdata.starter.collections.User
   server:
     url: "localhost:8081"

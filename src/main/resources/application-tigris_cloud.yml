@@ -3,14 +3,17 @@ server:
 
 ## Tigris cloud configuration
 tigris:
-  db:
+  project:
     name: "tigris_starter_java"
+  db:
     collectionClasses: com.tigrisdata.starter.collections.Order,com.tigrisdata.starter.collections.Product,com.tigrisdata.starter.collections.User
   server:
     url: "api.preview.tigrisdata.cloud"
+  network:
+    usePlainText: false
   auth:
-    clientId: "your-tigris-app-id"
-    clientSecret: "your-tigris-app-secret"
+    clientId: "<your-app_key-client-id>"
+    clientSecret: "<your-app_key-client-secret>"
   sync-client:
     enabled: true
     initializer:
