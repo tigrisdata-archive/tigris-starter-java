@@ -16,12 +16,12 @@ package com.tigrisdata.starter.collections;
 import com.tigrisdata.db.annotation.TigrisCollection;
 import com.tigrisdata.db.annotation.TigrisField;
 import com.tigrisdata.db.annotation.TigrisPrimaryKey;
-import com.tigrisdata.db.type.TigrisDocumentCollectionType;
+import com.tigrisdata.db.type.TigrisCollectionType;
 
 import java.util.Objects;
 
 @TigrisCollection("product_collection")
-public class Product implements TigrisDocumentCollectionType {
+public class Product implements TigrisCollectionType {
 
   @TigrisField(description = "A unique identifier for the product")
   @TigrisPrimaryKey(order = 1, autoGenerate = true)

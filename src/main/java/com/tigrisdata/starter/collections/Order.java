@@ -15,12 +15,12 @@ package com.tigrisdata.starter.collections;
 
 import com.tigrisdata.db.annotation.TigrisField;
 import com.tigrisdata.db.annotation.TigrisPrimaryKey;
-import com.tigrisdata.db.type.TigrisDocumentCollectionType;
+import com.tigrisdata.db.type.TigrisCollectionType;
 
 import java.util.List;
 import java.util.Objects;
 
-public class Order implements TigrisDocumentCollectionType {
+public class Order implements TigrisCollectionType {
 
   @TigrisField(description = "A unique identifier for the order")
   @TigrisPrimaryKey(order = 1, autoGenerate = true)

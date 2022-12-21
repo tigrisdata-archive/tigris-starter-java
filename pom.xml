@@ -26,7 +26,7 @@
     </dependencies>
     <properties>
         <!-- we are still pre-release -->
-        <tigris.client.java.version>1.0.0-beta.6</tigris.client.java.version>
+        <tigris.client.java.version>1.0.0-beta.7</tigris.client.java.version>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
